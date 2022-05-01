@@ -21,6 +21,9 @@ public class PessoaUserService {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
+	@Autowired
+	private ServiceSendEmail serviceSendEmail;
+
 	public PessoaJuridica salvarPessoaJuridica(PessoaJuridica juridica) {
 
 		//juridica = pesssoaRepository.save(juridica);
@@ -31,10 +34,30 @@ public class PessoaUserService {
 
 		juridica = pesssoaJuridicaRepository.save(juridica);
 
+		StringBuilder menssagemHtml = new StringBuilder();
+
+		menssagemHtml.append("<b>Segue abaixo seus dados de acesso</b><br/>");
+		menssagemHtml.append("<b>email: </b>"+juridica.getEmail()+"<br/>");
+		menssagemHtml.append("<b>cnpj: </b>"+juridica.getCnpj()+"<br/>");
+		menssagemHtml.append("<b>nome: </b>"+juridica.getNomeFantasia()+"<br/>");
+		menssagemHtml.append("<b>Data Abertura: </b>"+juridica.getDatainit()+"<br/>");
+		menssagemHtml.append("<b>Data Validade: </b>"+juridica.getDatavalid()+"<br/>");
+
+
+
+
+		menssagemHtml.append("Obrigado!");
+
+		try {
+			serviceSendEmail.enviarEmailHtml("Acesso Gerado ", menssagemHtml.toString() , juridica.getEmail());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+
 
 		return juridica;
 
-	}
+}
 
 
 	public CepDTO consultaCep(String cep) {
