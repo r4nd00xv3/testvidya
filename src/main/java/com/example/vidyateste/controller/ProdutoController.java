@@ -31,11 +31,11 @@ public class ProdutoController {
 
 
 
-	@GetMapping(value = "buscaruseridProduto") /* mapeia a url */
+	@GetMapping(value = "buscaruseridProduto/{id}") /* mapeia a url */
 	@ResponseBody /* Descricao da resposta */
-	public ResponseEntity<Produto> buscarprodid(@RequestParam(name = "idprod") Long idprod) { /* Recebe os dados para consultar */
+	public ResponseEntity<Produto> buscarprodid(@PathVariable(name = "id") Long id) { /* Recebe os dados para consultar */
 
-		Produto produto = produtoRepository.findById(idprod).get();
+		Produto produto = produtoRepository.findById(id).get();
 
 		return new ResponseEntity<Produto>(produto, HttpStatus.OK);
 
