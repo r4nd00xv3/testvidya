@@ -49,10 +49,10 @@ public class ServiceSendEmail {
 		Address[] toUser = InternetAddress.parse(emailDestino);
 		
 		Message message = new MimeMessage(session);
-		message.setFrom(new InternetAddress(userName, "Alex - do Java Web", "UTF-8"));
+		message.setFrom(new InternetAddress(userName, "TESTE ENVIO EMAIL", "UTF-8"));
 		message.setRecipients(Message.RecipientType.TO, toUser);
 		message.setSubject(assunto);
-		message.setText(menssagem);
+		message.setContent(menssagem, "text/html; charset=utf-8");
 		
 		Transport.send(message);
 		
