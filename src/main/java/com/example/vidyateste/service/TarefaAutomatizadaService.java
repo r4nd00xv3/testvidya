@@ -25,7 +25,7 @@ public class TarefaAutomatizadaService {
 	
 	
 	//@Scheduled(cron = "0 0 11 * * *", zone = "America/Sao_Paulo") /*Vai rodar todo dia as 11 horas da manhã horario de Sao paulo*/
-	@Scheduled(fixedDelay = 800 ) /*Roda a cada 24 horas*/
+	@Scheduled(fixedDelay = 800000000 ) /*Roda a cada 24 horas*/
 	public void notificarUserTrocaSenha() throws UnsupportedEncodingException, MessagingException, InterruptedException {
 		
 		List<PessoaJuridica> usuarios = pesssoaJuridicaRepository.datavalidadelicenca();
