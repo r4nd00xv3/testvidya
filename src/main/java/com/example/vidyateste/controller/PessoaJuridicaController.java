@@ -1,5 +1,6 @@
 package com.example.vidyateste.controller;
 
+import com.example.vidyateste.ExceptionVidya;
 import com.example.vidyateste.dto.CepDTO;
 import com.example.vidyateste.model.Endereco;
 import com.example.vidyateste.model.PessoaJuridica;
@@ -10,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -97,7 +96,7 @@ public class PessoaJuridicaController {
 
 	@ResponseBody
 	@PostMapping(value = "/salvarPj")
-	public ResponseEntity<PessoaJuridica> salvarPj(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws Exception{
+	public Object salvarPj(@RequestBody @Valid PessoaJuridica pessoaJuridica) throws ExceptionVidya {
 
 		/*if (pessoaJuridica.getNome() == null || pessoaJuridica.getNome().trim().isEmpty()) {
 			throw new ExceptionMentoriaJava("Informe o campo de nome");
@@ -105,8 +104,14 @@ public class PessoaJuridicaController {
 
 
 		if (pessoaJuridica == null) {
-			throw new Exception("Pessoa juridica nao pode ser NULL");
+			throw new ExceptionVidya("Pessoa juridica nao pode ser NULL");
+
+
 		}
+		if (pessoaJuridica.getId() == null && pesssoaJuridicaRepository.existeCnpjCadastrado(pessoaJuridica.getCnpj()) != null) {
+			throw new ExceptionVidya("Já existe CNPJ cadastrado com o número: " + pessoaJuridica.getCnpj());
+		}
+
 
 
 

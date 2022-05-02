@@ -9,7 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 
@@ -72,4 +76,12 @@ public class ProdutoController {
 
 		return new ResponseEntity<String>("User deletado com sucesso", HttpStatus.OK);
 
-	}}
+	}
+	@PostMapping("/anexo")
+	public String uploadAnexo(@RequestParam MultipartFile anexo) throws IOException {
+		OutputStream out = new FileOutputStream(
+				"/Users/randrade/Desktop/Developer/anexo.pdf" + anexo.getOriginalFilename());
+		out.write(anexo.getBytes());
+		out.close();
+		return "ok";
+}}

@@ -1,5 +1,7 @@
 package com.example.vidyateste.model;
 
+import org.hibernate.validator.constraints.br.CNPJ;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ public class PessoaJuridica  {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_produto")
 	private Long id;
 
-
+	@CNPJ(message = "Cnpj está inválido")
 	private String cnpj;
 	
 	private String nomeFantasia;
