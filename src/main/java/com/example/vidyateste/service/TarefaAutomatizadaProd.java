@@ -38,7 +38,7 @@ public class TarefaAutomatizadaProd {
 
             serviceSendEmail.enviarEmailHtml("SEM ESTOQUE", msg.toString(), produto.getPessoa().getEmail());
 
-            Thread.sleep(200);
+            Thread.sleep(6000);
 
         }
 }}

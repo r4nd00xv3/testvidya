@@ -20,16 +20,11 @@ public interface PesssoaJuridicaRepository extends JpaRepository<PessoaJuridica,
 	@Query("select a from PessoaJuridica a where upper(trim(a.nomeFantasia)) like %?1%")
 	List<PessoaJuridica> buscarAcessoDesc(String nome);
 
-	@Query(value = "select u from PessoaJuridica u where u.datavalid <= current_date - 2")
+	@Query(value = "select u from PessoaJuridica u where u.datavalid <= current_date - 90")
 	List<PessoaJuridica> datavalidadelicenca();
 
-	/*@Modifying
-	@Query(value = "update PessoaJuridica  set licenca = true where  datavalid <= current_date - 0")
-	List<PessoaJuridica> desativalic();*/
 
-	@Modifying
-	@Query(value = "select u from PessoaJuridica u where u.")
-	List<PessoaJuridica> desativalic();
+
 
 
 	@Query(value = "select pj from PessoaJuridica pj where pj.cnpj = ?1")

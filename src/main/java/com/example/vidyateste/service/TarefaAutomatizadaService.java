@@ -40,7 +40,7 @@ public class TarefaAutomatizadaService {
 			
 			serviceSendEmail.enviarEmailHtml("Favor renovar licença", msg.toString(), usuario.getEmail());
 			
-			Thread.sleep(100);
+			Thread.sleep(3000);
 			
 		}
 
