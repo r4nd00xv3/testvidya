@@ -23,7 +23,7 @@ public class TarefaAutomatizadaProd {
     private ServiceSendEmail serviceSendEmail;
 
     //@Scheduled(cron = "0 0 11 * * *", zone = "America/Sao_Paulo") /*Vai rodar todo dia as 11 horas da manhã horario de Sao paulo*/
-    @Scheduled(fixedDelay = 30000 ) /*Roda a cada 2 minutos*/
+    @Scheduled(fixedDelay = 25000   ) /*Roda a cada 2 minutos*/
     public void notifecliente() throws UnsupportedEncodingException, MessagingException, InterruptedException {
 
         List<Produto> produtos = produtoRepository.notifcliente();

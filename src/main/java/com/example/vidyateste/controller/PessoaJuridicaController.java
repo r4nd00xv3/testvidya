@@ -32,14 +32,6 @@ public class PessoaJuridicaController {
 
 
 
-	@PostMapping(value = "salvar") /* mapeia a url */
-	@ResponseBody /* Descricao da resposta */
-	public ResponseEntity<PessoaJuridica> salvar(@RequestBody PessoaJuridica usuario) { /* Recebe os dados para salvar */
-
-		PessoaJuridica user = pesssoaJuridicaRepository.save(usuario);
-
-		return new ResponseEntity<PessoaJuridica>(user, HttpStatus.CREATED);
-}
 
 
 
@@ -73,17 +65,16 @@ public class PessoaJuridicaController {
 
 		PessoaJuridica user = pesssoaJuridicaRepository.saveAndFlush(pessoa);
 
-		return new ResponseEntity<PessoaJuridica>(user, HttpStatus.OK);
+		return new ResponseEntity<PessoaJuridica>(user, HttpStatus.CREATED);
 }
 
-	@DeleteMapping(value = "delete") /* mapeia a url */
-	@ResponseBody /* Descricao da resposta */
-	public ResponseEntity<String> delete(@RequestParam Long iduser) { /* Recebe os dados para delete */
+	@ResponseBody
+	@DeleteMapping(value = "/deletePorId/{id}")
+	public ResponseEntity<?> deleteAcessoPorId(@PathVariable("id") Long id) {
 
-		pesssoaJuridicaRepository.deleteById(iduser);
+		pesssoaJuridicaRepository.deleteById(id);
 
-		return new ResponseEntity<String>("User deletado com sucesso", HttpStatus.OK);
-
+		return new ResponseEntity("Acesso Removido",HttpStatus.OK);
 	}
 
 	@ResponseBody
@@ -148,6 +139,6 @@ public class PessoaJuridicaController {
 		}
 		pessoaJuridica = pessoaUserService.salvarPessoaJuridica(pessoaJuridica);
 
-		return new ResponseEntity<PessoaJuridica>(pessoaJuridica, HttpStatus.OK);
+		return new ResponseEntity<PessoaJuridica>(pessoaJuridica, HttpStatus.CREATED);
 	}
 }

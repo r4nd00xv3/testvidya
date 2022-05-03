@@ -60,28 +60,31 @@ public class ProdutoController {
 	public ResponseEntity<?> atualizar(@RequestBody Produto produto) { /* Recebe os dados para salvar */
 
 		if (produto.getId() == null) {
-			return new ResponseEntity<String>("Id não foi informado para atualização.", HttpStatus.OK);
+			return new ResponseEntity<String>("Id não foi informado para atualização.", HttpStatus.UNAUTHORIZED);
 		}
 
 		Produto user = produtoRepository.saveAndFlush(produto);
 
-		return new ResponseEntity<Produto>(user, HttpStatus.OK);
+		return new ResponseEntity<Produto>(user, HttpStatus.CREATED);
 }
 
-	@DeleteMapping(value = "deleteProduto") /* mapeia a url */
-	@ResponseBody /* Descricao da resposta */
-	public ResponseEntity<String> delete(@RequestParam Long iduser) { /* Recebe os dados para delete */
 
-		produtoRepository.deleteById(iduser);
 
-		return new ResponseEntity<String>("User deletado com sucesso", HttpStatus.OK);
+	@ResponseBody
+	@DeleteMapping(value = "/deleteProdPorId/{id}")
+	public ResponseEntity<?> deleteAcessoPorId(@PathVariable("id") Long id) {
 
+		produtoRepository.deleteById(id);
+
+		return new ResponseEntity("Acesso Removido",HttpStatus.OK);
 	}
-	@PostMapping("/anexo")
-	public String uploadAnexo(@RequestParam MultipartFile anexo) throws IOException {
+
+	@PostMapping("/produto/anexo")
+	public ResponseEntity<String> uploadAnexo(@RequestParam MultipartFile anexo) throws IOException {
 		OutputStream out = new FileOutputStream(
-				"/Users/randrade/Desktop/Developer/anexo.pdf" + anexo.getOriginalFilename());
+				"/Users/randrade/Desktop/teste dev/anexo.pdf" + anexo.getOriginalFilename());
 		out.write(anexo.getBytes());
 		out.close();
-		return "ok";
-}}
+		return new ResponseEntity<String>("Enviado com sucesso.", HttpStatus.CREATED);
+
+	}}
